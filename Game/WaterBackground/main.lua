@@ -25,7 +25,7 @@ function WaterBackground.load()
         table.insert(waterFrames, img)
     end
 
-    shader = love.graphics.newShader('assets/shaders/test.glsl')
+    shader = love.graphics.newShader('assets/shaders/shockwave.glsl')
 end
 
 function WaterBackground.update(dt)
@@ -45,12 +45,11 @@ function WaterBackground.draw(zoom, screenWidth, screenHeight)
     love.graphics.origin()
     love.graphics.scale(zoom)   
    
-    -- love.graphics.setShader(shader)
-    -- shader:send("iMouse", {love.mouse.getX() , love.mouse.getY() })
-    -- shader:send("iResolution",{ w/5, h/5})
-    -- shader:send("waveOrigin", {screenWidth/2, screenHeight/2})
-    -- shader:send("waveDirection", 1)
-    -- shader:send("iTime", love.timer.getTime())
+    love.graphics.setShader(shader)
+    shader:send("zoom", zoom/2)
+    shader:send("iResolution",{ screenWidth/2, screenHeight/2})
+    shader:send("center", {screenWidth/2, screenHeight/2})
+
 
     local screenWidth = screenWidth / zoom
     local screenHeight = screenHeight/ zoom
@@ -80,7 +79,7 @@ function WaterBackground.draw(zoom, screenWidth, screenHeight)
         love.graphics.setColor(1,1,1)
     end
         
-    -- love.graphics.setShader()
+    love.graphics.setShader()
 
     love.graphics.pop()
 end
